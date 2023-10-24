@@ -13,8 +13,10 @@ import {
 import RootLayout from "./layout/RootLayout";
 import { Movies, MovieInformation, Actors, Profile } from "./components";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Provider } from "react-redux";
 
 import useStyles from "./components/styles";
+import store from "./App/store";
 
 const theme = createTheme();
 
@@ -32,12 +34,14 @@ const router = createBrowserRouter(
 function App() {
   const classes = useStyles();
   return (
-    <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <RouterProvider router={router} />
-      </div>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <div className={classes.root}>
+          <CssBaseline />
+          <RouterProvider router={router} />
+        </div>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
