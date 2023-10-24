@@ -9,7 +9,11 @@ import {
 import RootLayout from "./layout/RootLayout";
 import { Movies, MovieInformation, Actors, Profile } from "./components";
 
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import useStyles from "./components/styles";
+
+const theme = createTheme();
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,10 +29,12 @@ const router = createBrowserRouter(
 function App() {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <RouterProvider router={router} />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </div>
+    </ThemeProvider>
   );
 }
 
