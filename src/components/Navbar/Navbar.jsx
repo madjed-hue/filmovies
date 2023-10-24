@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import useStyles from "./styles";
 import { useState } from "react";
 import { useTheme } from "@mui/styles";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -90,7 +91,7 @@ const Navbar = () => {
               classes={{ paper: classes.drawerPaper }}
               ModalProps={{ keepMounted: true }}
             >
-              {/* <Sidebar setMobileOpen={setMobileOpen} /> */}
+              <Sidebar setMobileOpen={setMobileOpen} />
             </Drawer>
           ) : (
             <Drawer
@@ -98,7 +99,7 @@ const Navbar = () => {
               variant="permanent"
               open
             >
-              {/* <Sidebar setMobileOpen={setMobileOpen} /> */}
+              <Sidebar setMobileOpen={setMobileOpen} />
             </Drawer>
           )}
         </nav>
