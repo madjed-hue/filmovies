@@ -1,4 +1,8 @@
 import { CssBaseline } from "@mui/material";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 import {
   createBrowserRouter,
@@ -8,7 +12,6 @@ import {
 } from "react-router-dom";
 import RootLayout from "./layout/RootLayout";
 import { Movies, MovieInformation, Actors, Profile } from "./components";
-
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import useStyles from "./components/styles";
