@@ -11,10 +11,13 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useTheme } from "@mui/styles";
+import { useSelector, useDispatch } from "react-redux";
 
 import useStyles from "./styles";
 import genreIcons from "../../assets/genres";
-import { useTheme } from "@mui/styles";
+import { useGetGenresQuery } from "../../services/TMDB";
+import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 
 const categories = [
   { label: "Popular", value: "popular" },
@@ -27,13 +30,20 @@ const redLogo =
 const blueLogo =
   "https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png";
 
-const Sidebar = ({ setMobileOpen }) => {
+// { setMobileOpen }
+
+const Sidebar = () => {
   const theme = useTheme();
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [setMobileOpen]);
+  const { genreIdOrCategoryName } = useSelector(
+    (state) => state.currentGenreOrCategory
+  );
+
+  // console.log(genreIdOrCategoryName);
+
+  const { data, isFetching } = useGetGenresQuery();
 
   return (
     <>
@@ -50,7 +60,7 @@ const Sidebar = ({ setMobileOpen }) => {
         {categories.map(({ label, value }) => (
           <Link key={value} className={classes.links} to="/">
             <ListItem
-              // onClick={() => dispatch(selectGenreOrCategory(value))}
+              onClick={() => dispatch(selectGenreOrCategory(value))}
               button
             >
               <ListItemIcon>
@@ -68,27 +78,29 @@ const Sidebar = ({ setMobileOpen }) => {
       <Divider />
       <List>
         <ListSubheader>Genres</ListSubheader>
-        {/* {isFetching ? ( */}
-        {/* <Box display="flex" justifyContent="center">
-          <CircularProgress />
-        </Box> */}
-        {/* ) : data.genres.map(({ name, id }) => ( */}
-        <Link key={name} className={classes.links} to="/">
-          <ListItem
-            // onClick={() => dispatch(selectGenreOrCategory(id))}
-            button
-          >
-            <ListItemIcon>
-              <img
-                src={genreIcons[name.toLowerCase()]}
-                className={classes.genreImage}
-                height={30}
-              />
-            </ListItemIcon>
-            <ListItemText primary={name} />
-          </ListItem>
-        </Link>
-        {/*  ))} */}
+        {isFetching ? (
+          <Box display="flex" justifyContent="center">
+            <CircularProgress />
+          </Box>
+        ) : (
+          data.genres.map(({ name, id }) => (
+            <Link key={id} className={classes.links} to="/">
+              <ListItem
+                onClick={() => dispatch(selectGenreOrCategory(id))}
+                button
+              >
+                <ListItemIcon>
+                  <img
+                    src={genreIcons[name.toLowerCase()]}
+                    className={classes.genreImage}
+                    height={30}
+                  />
+                </ListItemIcon>
+                <ListItemText primary={name} />
+              </ListItem>
+            </Link>
+          ))
+        )}
       </List>
     </>
   );
