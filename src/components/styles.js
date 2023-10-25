@@ -10,6 +10,10 @@ const useStyles = makeStyles(() => ({
   },
   content: {
     flexGrowl: "1",
+    padding: "2em 2em 2em 17em",
+  },
+  mobileContent: {
+    flexGrowl: "1",
     padding: "2em",
   },
 }));

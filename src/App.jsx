@@ -10,8 +10,13 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import RootLayout from "./layout/RootLayout";
-import { Movies, MovieInformation, Actors, Profile } from "./components";
+import {
+  Movies,
+  MovieInformation,
+  Actors,
+  Profile,
+  RootLayout,
+} from "./components";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Provider } from "react-redux";
 
