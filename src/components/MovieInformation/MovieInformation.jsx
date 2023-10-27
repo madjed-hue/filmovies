@@ -38,6 +38,9 @@ const MovieInformation = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
+  const [isMovieFavorited, setIsMovieFavorited] = useState(false);
+  const [isMovieWatchlisted, setIsMovieWatchlisted] = useState(false);
+
   if (isFetching) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center">
@@ -95,7 +98,7 @@ const MovieInformation = () => {
               key={genre.name}
               className={classes.links}
               to="/"
-              // onClick={() => dispatch(selectGenreOrCategory(genre.id))}
+              onClick={() => dispatch(selectGenreOrCategory(genre.id))}
             >
               <img
                 src={genreIcons[genre.name.toLowerCase()]}
@@ -184,8 +187,7 @@ const MovieInformation = () => {
                 <Button
                 // onClick={addToFavorites} endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}
                 >
-                  {/* {isMovieFavorited ? 'Unfavorite' : 'Favorite'} */}
-                  Unfavorite
+                  {isMovieFavorited ? "Unfavorite" : "Favorite"}
                 </Button>
                 <Button
                 // onClick={addToWatchlist} endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}
