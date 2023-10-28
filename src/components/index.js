@@ -8,3 +8,4 @@ export { default as Movie } from "./Movie/Movie";
 export { default as RootLayout } from "./layout/RootLayout";
 export { default as Search } from "./Search/Search";
 export { default as Sidebar } from "./Sidebar/Sidebar";
+export { default as Pagination } from "./Pagination/Pagination";
