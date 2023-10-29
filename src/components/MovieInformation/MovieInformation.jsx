@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Modal,
   Typography,
@@ -7,7 +7,6 @@ import {
   Grid,
   Box,
   CircularProgress,
-  useMediaQuery,
   Rating,
 } from "@mui/material";
 import {
@@ -30,9 +29,12 @@ import genreIcons from "../../assets/genres";
 import { MovieList } from "..";
 import { userSelector } from "../../features/auth";
 import {
+  useGetListQuery,
   useGetMovieQuery,
   useGetRecommendationsQuery,
 } from "../../services/TMDB";
+
+const tmdbApiKey = import.meta.env.VITE_TMDB_API_KEY;
 
 const MovieInformation = () => {
   const { id } = useParams();
@@ -40,31 +42,71 @@ const MovieInformation = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
+  const { user } = useSelector(userSelector);
+
   const { data, isFetching, error } = useGetMovieQuery(id);
   const { data: recommendations } = useGetRecommendationsQuery({
     movie_id: id,
     list: "/recommendations",
   });
+  const { data: favoriteMovies } = useGetListQuery({
+    listName: "favorite/movies",
+    accountId: user.id,
+    sessionId: localStorage.getItem("session_id"),
+    page: 1,
+  });
+  const { data: watchlistMovies } = useGetListQuery({
+    listName: "watchlist/movies",
+    accountId: user.id,
+    sessionId: localStorage.getItem("session_id"),
+    page: 1,
+  });
 
   const [isMovieFavorited, setIsMovieFavorited] = useState(false);
   const [isMovieWatchlisted, setIsMovieWatchlisted] = useState(false);
 
+  useEffect(() => {
+    setIsMovieFavorited(
+      !!favoriteMovies?.results?.find((movie) => movie?.id === data?.id)
+    );
+  }, [favoriteMovies, data]);
+
+  useEffect(() => {
+    setIsMovieWatchlisted(
+      !!watchlistMovies?.results?.find((movie) => movie?.id === data?.id)
+    );
+  }, [watchlistMovies, data]);
+
   const addToFavorites = async () => {
-    // await axios.post(`https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${localStorage.getItem('session_id')}`, {
-    //   media_type: 'movie',
-    //   media_id: id,
-    //   favorite: !isMovieFavorited,
-    // });
-    // setIsMovieFavorited((prev) => !prev);
+    await axios.post(
+      `https://api.themoviedb.org/3/account/${
+        user.id
+      }/favorite?api_key=${tmdbApiKey}&session_id=${localStorage.getItem(
+        "session_id"
+      )}`,
+      {
+        media_type: "movie",
+        media_id: id,
+        favorite: !isMovieFavorited,
+      }
+    );
+    setIsMovieFavorited((prev) => !prev);
   };
 
   const addToWatchlist = async () => {
-    // await axios.post(`https://api.themoviedb.org/3/account/${user.id}/watchlist?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${localStorage.getItem('session_id')}`, {
-    //   media_type: 'movie',
-    //   media_id: id,
-    //   watchlist: !isMovieWatchlisted,
-    // });
-    // setIsMovieWatchlisted((prev) => !prev);
+    await axios.post(
+      `https://api.themoviedb.org/3/account/${
+        user.id
+      }/watchlist?api_key=${tmdbApiKey}&session_id=${localStorage.getItem(
+        "session_id"
+      )}`,
+      {
+        media_type: "movie",
+        media_id: id,
+        watchlist: !isMovieWatchlisted,
+      }
+    );
+    setIsMovieWatchlisted((prev) => !prev);
   };
 
   if (isFetching) {
@@ -213,7 +255,7 @@ const MovieInformation = () => {
                 <Button
                   onClick={addToFavorites}
                   endIcon={
-                    isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />
+                    isMovieFavorited ? <Favorite /> : <FavoriteBorderOutlined />
                   }
                 >
                   {isMovieFavorited ? "Unfavorite" : "Favorite"}
