@@ -17,13 +17,11 @@ import {
   Profile,
   RootLayout,
 } from "./components";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Provider } from "react-redux";
 
 import useStyles from "./components/styles";
 import store from "./App/store";
-
-const theme = createTheme();
+import ToggleColorModeProvider from "./utils/ToggleColorMode";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,12 +39,12 @@ function App() {
   const classes = useStyles();
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <ToggleColorModeProvider>
         <div className={classes.root}>
           <CssBaseline />
           <RouterProvider router={router} />
         </div>
-      </ThemeProvider>
+      </ToggleColorModeProvider>
     </Provider>
   );
 }

@@ -14,7 +14,7 @@ import {
   Brightness7,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTheme } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,6 +22,7 @@ import useStyles from "./styles";
 import { Sidebar, Search } from "..";
 import { fetchToken, createSessionId, movieApi } from "../../utils";
 import { setUser, userSelector } from "../../features/auth";
+import { ColorModeContext } from "../../utils/ToggleColorMode";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -30,12 +31,12 @@ const Navbar = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
+  const colorMode = useContext(ColorModeContext);
+
   const token = localStorage.getItem("request_token");
   const sessionIdFromLocalStorage = localStorage.getItem("session_id");
 
   const { isAuthenticated, user } = useSelector(userSelector);
-
-  // console.log(user);
 
   useEffect(() => {
     const logInUser = async () => {
@@ -76,7 +77,7 @@ const Navbar = () => {
           <IconButton
             color="inherit"
             sx={{ ml: 1 }}
-            // onClick={colorMode.toggleColorMode}
+            onClick={colorMode.toggleColorMode}
           >
             {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
