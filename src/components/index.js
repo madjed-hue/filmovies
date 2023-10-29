@@ -9,3 +9,4 @@ export { default as RootLayout } from "./layout/RootLayout";
 export { default as Search } from "./Search/Search";
 export { default as Sidebar } from "./Sidebar/Sidebar";
 export { default as Pagination } from "./Pagination/Pagination";
+export { default as RatedCards } from "./RatedCards/RatedCards";
