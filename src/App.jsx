@@ -37,6 +37,7 @@ const router = createBrowserRouter(
 
 function App() {
   const classes = useStyles();
+
   return (
     <Provider store={store}>
       <ToggleColorModeProvider>
