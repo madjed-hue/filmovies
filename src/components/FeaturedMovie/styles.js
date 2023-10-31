@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     color: "#fff",
     width: "40%",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       width: "100%",
     },
   },
