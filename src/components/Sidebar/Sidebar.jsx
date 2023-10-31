@@ -32,7 +32,7 @@ const blueLogo =
 
 // { setMobileOpen }
 
-const Sidebar = () => {
+const Sidebar = ({ setMobileOpen }) => {
   const theme = useTheme();
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -41,9 +41,11 @@ const Sidebar = () => {
     (state) => state.currentGenreOrCategory
   );
 
-  // console.log(genreIdOrCategoryName);
-
   const { data, isFetching } = useGetGenresQuery();
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [genreIdOrCategoryName, setMobileOpen]);
 
   return (
     <>
