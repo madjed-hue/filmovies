@@ -11,7 +11,7 @@ export const tmdbApi = createApi({
       query: () => `genre/movie/list?api_key=${tmdbApiKey}`,
     }),
 
-    // Get Movies By Type
+    //* Get Movies By Type
     getMovies: builder.query({
       query: ({ genreIdOrCategoryName, page, searchQuery }) => {
         // Get Movies By Search
