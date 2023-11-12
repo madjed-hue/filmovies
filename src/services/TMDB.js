@@ -52,7 +52,7 @@ export const tmdbApi = createApi({
         `/account/${accountId}/${listName}?api_key=${tmdbApiKey}&session_id=${sessionId}&page=${page}`,
     }),
 
-    // Get User Specific List (Recomendation)
+    //* Get User Specific List (Recomendation)
     getRecommendations: builder.query({
       query: ({ movie_id, list }) =>
         `/movie/${movie_id}/${list}?api_key=${tmdbApiKey}`,
