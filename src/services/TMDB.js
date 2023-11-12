@@ -40,7 +40,7 @@ export const tmdbApi = createApi({
       },
     }),
 
-    // Get Movie
+    //* Get Movie
     getMovie: builder.query({
       query: (id) =>
         `/movie/${id}?append_to_response=videos,images,credits&api_key=${tmdbApiKey}`,
