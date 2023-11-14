@@ -3,6 +3,7 @@ import { tmdbApi } from "../services/TMDB";
 import genreOrCategoryReducer from "../features/currentGenreOrCategory";
 import userReducer from "../features/auth";
 
+// configure store
 export default configureStore({
   reducer: {
     [tmdbApi.reducerPath]: tmdbApi.reducer,
