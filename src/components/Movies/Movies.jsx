@@ -40,7 +40,7 @@ const Movies = () => {
         <Typography variant="h4">
           No movies matched that name.
           <br />
-          Please search for something else.
+          Please Try something else.
         </Typography>
       </Box>
     );
