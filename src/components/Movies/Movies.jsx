@@ -38,7 +38,7 @@ const Movies = () => {
     return (
       <Box display="flex" alignItems="center" mt="20px">
         <Typography variant="h4">
-          No movies that match that name.
+          No movies matched that name.
           <br />
           Please search for something else.
         </Typography>
