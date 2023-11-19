@@ -87,7 +87,7 @@ const Sidebar = ({ setMobileOpen }) => {
             <Link key={id} className={classes.links} to="/">
               <ListItem
                 onClick={() => dispatch(selectGenreOrCategory(id))}
-                button
+                // button
               >
                 <ListItemIcon>
                   <img
